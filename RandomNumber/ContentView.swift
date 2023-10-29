@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var endNum = 50
     @State private var result = 0
     
+    @FocusState private var isKeyboardFocused: Bool
+    
     var body: some View {
         VStack {
             Text("Random number!")
@@ -28,12 +30,14 @@ struct ContentView: View {
                     .font(.title)
                     .multilineTextAlignment(.center)
                     .keyboardType(.decimalPad)
+                    .focused($isKeyboardFocused)
                     .padding()
                 
                 TextField("Maximum number", value: $endNum, format: .number)
                     .font(.title)
                     .multilineTextAlignment(.center)
                     .keyboardType(.decimalPad)
+                    .focused($isKeyboardFocused)
                     .padding()
             }
             
@@ -46,6 +50,7 @@ struct ContentView: View {
             Button {
                 print("Button tapped")
                 result = randomNumGen()
+                isKeyboardFocused = false
             } label: {
                 Image("Tensor")
                     .resizable()
